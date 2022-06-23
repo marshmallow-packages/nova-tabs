@@ -24,15 +24,16 @@
                 :key="key"
                 :class="
                   getIsTabCurrent(tab)
-                    ? 'active ' +
-                      getConfiguredColor('text', 500) +
-                      ' tabs-font-bold  tabs-border-x-gray-200 dark:tabs-border-x-gray-400 tabs-border-b-2 ' +
-                      getConfiguredColor('border', 500, 'b')
-                    : ' tabs-text-gray-600 hover:tabs-text-gray-800 dark:tabs-text-gray-400 hover:dark:tabs-text-gray-200'
+                    ? 'active tabs-text-' +
+                      getCurrentColor() +
+                      '-500 tabs-font-bold  dark:tabs-border-x-gray-400 tabs-border-b-2 tabs-border-b-' +
+                      getCurrentColor() +
+                      '-500'
+                    : 'tabs-text-gray-600 hover:tabs-text-gray-800 dark:tabs-text-gray-400 hover:dark:tabs-text-gray-200'
                 "
                 :dusk="tab.slug + '-tab'"
                 :ref="tab.slug + '-tab'"
-                class="tab-item"
+                class="tab-item tabs-border-x-gray-200"
                 @click.prevent="handleTabClick(tab)"
               >
                 <span class="capitalize">{{ tab.properties.title }}</span>
