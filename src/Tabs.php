@@ -41,7 +41,7 @@ class Tabs extends Panel
 
     public bool $retainTabPosition = false;
 
-    public string $currentColor = 'primary';
+    public $currentColor = null;
     public string $errorColor = 'red';
 
     /**
@@ -57,7 +57,7 @@ class Tabs extends Panel
         $this->preservedName = $name;
         $this->withComponent('tabs');
 
-        parent::__construct($name, $this->prepareFields($fields));
+        parent::__construct($name, $fields);
     }
 
 

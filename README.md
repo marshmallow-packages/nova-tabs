@@ -17,6 +17,7 @@
     1. [Tab](#tab)
     2. [Default search](#default-search)
     3. [Display more than 5 items](#display-more-than-5-items)
+    4. [Tab change Global Event](#tab-change-global-event)
 5. [Upgrade to V2](#upgrade-to-v2)
 
 ## Requirements
@@ -40,37 +41,7 @@ composer require eminiarts/nova-tabs
 
 ![image](https://user-images.githubusercontent.com/3426944/50060698-7835ec00-0197-11e9-8b9c-c7f1e67400db.png)
 
-You can group fields of a resource into tabs, you can use an array or a Tab object (as of 1.4.0)::
-
-```php
-// in app/Nova/Resource.php
-
-use Eminiarts\Tabs\Traits\HasTabs;
-use Eminiarts\Tabs\Tabs;
-
-class User extends Resource
-{
-    use HasTabs;
-    
-    public function fields(Request $request)
-    {
-       return [
-   
-           new Tabs('Some Title', [
-               'Balance'    => [
-                   Number::make('Balance', 'balance'),
-                   Number::make('Total', 'total'),
-               ],
-               'Other Info' => [
-                   Number::make('Paid To Date', 'paid_to_date'),
-               ],
-           ]),
-       ];
-   }
-}
-```
-
-or
+You can group fields of a resource into tabs.
 
 ```php
 // in app/Nova/Resource.php
@@ -182,7 +153,7 @@ use Laravel\Nova\Actions\ActionResource; // Import the Resource
 class Client extends Resource
 {
     use HasTabs;
-    use ActionsInTabs; // Use this Trait
+    use HasActionsInTabs; // Use this Trait
 
     public function fields(Request $request)
     {
@@ -227,7 +198,25 @@ As of v1.4.0 it's possible to use a `Tab` class instead of an array to represent
 ### Display more than 5 items
 
 By default, any `HasMany`, `BelongsToMany` and `MorphMany` fields show 5 items in their index. You can use Nova's built-in static property `$perPageViaRelationship` on the respective resource to show more (or less).
- 
+
+### Tab change Global Event
+
+Nova Tabs emits an event upon tabs loading and the user clicking on a tab, using [Nova Event Bus](https://nova.laravel.com/docs/4.0/customization/frontend.html#event-bus). Developers can listen to the event called ```nova-tabs-changed```, with 2 parameters as payload: The tab panel name and the tab name itself.
+
+Example of a component that subscribes to this event:
+
+```ES6
+export default {
+    mounted () {
+        Nova.$on('nova-tabs-changed', (panel, tab) => {
+            if (panel === 'Client Details' && tab === 'address') {
+                this.$nextTick(() => this.map.updateSize())
+            }
+        })
+    }
+}
+```
+
 ## Upgrade to 2.0.0
 - Breaking changes
    - Removed selectFirstTab, first tab is always displayed first.
