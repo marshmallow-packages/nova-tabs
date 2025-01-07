@@ -2,7 +2,10 @@
 
 ---
 
-[![Latest Version on Github](https://img.shields.io/packagist/v/eminiarts/nova-tabs.svg?style=flat)](https://packagist.org/packages/eminiarts/nova-tabs)
+[![Latest Version on Github](https://img.shields.io/packagist/v/marshmallow/nova-tabs.svg?style=flat)](https://packagist.org/packages/marshmallow/nova-tabs)
+
+> [!important]
+> This package was originally forked from [eminiarts/nova-tabs](https://github.com/eminiarts/nova-tabs). Since we were making many opinionated changes, we decided to continue development in our own version rather than submitting pull requests that might not benefit all users of the original package. You're welcome to use this package, we're actively maintaining it. If you encounter any issues, please don't hesitate to reach out.
 
 1. [Requirements](#Requirements)
 1. [Installation](#Installation)
@@ -32,7 +35,7 @@ For Laravel Nova Version 3, please use nova-tabs v1 instead.
 You can install the package in to a Laravel app that uses [Nova](https://nova.laravel.com) via composer:
 
 ```bash
-composer require eminiarts/nova-tabs
+composer require marshmallow/nova-tabs
 ```
 
 ## Usage
@@ -53,7 +56,7 @@ use Eminiarts\Tabs\Tab;
 class User extends Resource
 {
     use HasTabs;
-    
+
     public function fields(Request $request)
     {
        return [
@@ -71,7 +74,7 @@ class User extends Resource
  }
 ```
 
-The first tab in every `Tabs` instance will be auto-selected. 
+The first tab in every `Tabs` instance will be auto-selected.
 
 ### Relationship Tabs
 
@@ -88,7 +91,7 @@ use Eminiarts\Tabs\Traits\HasTabs;
 class User extends Resource
 {
     use HasTabs;
-    
+
     public function fields(Request $request)
     {
         return [
@@ -121,7 +124,7 @@ use Laravel\Nova\Fields\Text;
 class User extends Resource
 {
     use HasTabs;
-    
+
     public function fields(Request $request)
     {
           return [
@@ -228,4 +231,5 @@ export default {
    - Added position method to Tab to fix relational tabs showing up last.
 
 ## Credits
-Banner was created with https://banners.beyondco.de/
+- Banner was created with https://banners.beyondco.de/
+- [eminiarts/nova-tabs](https://github.com/eminiarts/nova-tabs)
