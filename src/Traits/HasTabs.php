@@ -98,7 +98,7 @@ trait HasTabs
                     ? $panels->prepend(Panel::make($label, $fields)->withMeta(['fields' => $fields]))
                     : $panels;
             })
-            ->tap(function ($panels) use ($label): void {
+            ->tap(function ($panels): void {
 
                 /**
                  * There can be no panels

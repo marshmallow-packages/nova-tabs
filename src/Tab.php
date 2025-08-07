@@ -13,7 +13,6 @@ use InvalidArgumentException;
 use JsonSerializable;
 use Laravel\Nova\Fields\Field;
 use function is_bool;
-use function is_callable;
 
 class Tab implements TabContract, JsonSerializable, Arrayable
 {
@@ -65,7 +64,7 @@ class Tab implements TabContract, JsonSerializable, Arrayable
 
     public function showIf($condition): self
     {
-        if (is_bool($condition) || is_callable($condition)) {
+        if (is_bool($condition) || $condition instanceof Closure) {
             $this->showIf = $condition;
 
             return $this;
@@ -76,7 +75,7 @@ class Tab implements TabContract, JsonSerializable, Arrayable
 
     public function showUnless($condition): self
     {
-        if (is_bool($condition) || is_callable($condition)) {
+        if (is_bool($condition) || $condition instanceof Closure) {
             $this->showUnless = $condition;
 
             return $this;
@@ -117,17 +116,11 @@ class Tab implements TabContract, JsonSerializable, Arrayable
         ];
     }
 
-    /**
-     * @return Closure|string
-     */
     public function getPosition(): int
     {
         return $this->position;
     }
 
-    /**
-     * @return Closure|string
-     */
     public function getTitle(): string
     {
         return (string) $this->resolve($this->title);
