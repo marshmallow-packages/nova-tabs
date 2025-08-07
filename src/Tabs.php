@@ -14,7 +14,6 @@ use Laravel\Nova\Contracts\ListableField;
 use Laravel\Nova\Panel;
 use Laravel\Nova\ResourceToolElement;
 use function is_array;
-use function is_callable;
 
 class Tabs extends Panel
 {
@@ -132,7 +131,7 @@ class Tabs extends Panel
             });
 
 
-        return $this->data ?? [];
+        return $this->data;
     }
 
     /**
@@ -142,7 +141,7 @@ class Tabs extends Panel
     private function convertFieldsToTabs($fields): Collection
     {
         $fieldsCollection = collect(
-            is_callable($fields) ? $fields() : $fields
+            $fields instanceof Closure ? $fields() : $fields
         );
 
         return $fieldsCollection->map(function ($fields, $key) {
